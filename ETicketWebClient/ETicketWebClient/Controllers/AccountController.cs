@@ -139,7 +139,14 @@ namespace ETicketWebClient.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            if (!HttpContext.User.Identity.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Manage");
+            }
         }
 
         //

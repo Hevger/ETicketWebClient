@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList.Mvc;
+using PagedList;
+
 
 namespace ETicketWebClient.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient();
+        public ActionResult Index(int? i)
         {
-            return View();
+            var events = eventClient.GetAllEvents();
+            return View(events.ToList().ToPagedList(i ?? 1, 4));
         }
 
         public ActionResult About()

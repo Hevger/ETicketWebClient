@@ -1,31 +1,53 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IPagedList<ETicketWebClient.ETicketService.Event>
+@{
+    ViewBag.Title = "Home";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+@using PagedList.Mvc;
+@using PagedList;
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+    <h2 style="font-weight: bold; Calibri; margin-left:15px;">Events</h2>
+    @foreach (var item in Model)
+    {
+        <div style="margin-top: 20px;" class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <img style="display: block; margin-left: auto; margin-right: auto; width: 100%;" src="https://picsum.photos/300/200" />
+                    <h3>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </h3>
+
+                    @{ var GateOpens = item.GateOpens.ToString("HH:mm"); }
+                    @{ var StartTime = item.StartTime.ToString("HH:mm"); }
+
+
+                    @{ var Date = item.Date.ToString("dd-MM-yyyy"); }
+                    @Html.DisplayFor(modelItem => Date)
+                    <br />
+                    <b>Available Tickets: </b> @Html.DisplayFor(modelItem => item.AvailableTickets)
+
+
+                    <p style="margin-top: 10px;">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    <p>
+                        <b>Gate: </b> @Html.DisplayFor(modelItem => item.Gate)
+                        <br />
+                        <b>Gate Opens: </b> @Html.DisplayFor(modelItem => GateOpens)
+                        <br />
+                        <b>Start Time: </b> @Html.DisplayFor(modelItem => StartTime)
+                        <br />
+                        <b>Price: </b> @Html.DisplayFor(modelItem => item.TicketPrice) DKK
+                    </p>
+                    </p>
+                    <p>
+                        <a href="/Event/@Html.DisplayFor(modelItem => item.EventId)" class="btn btn-primary" role="button">Buy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
 </div>
+
+@Html.PagedListPager(Model, i => Url.Action("Index", "Home", new { i, page=Request.QueryString["page"] }));
