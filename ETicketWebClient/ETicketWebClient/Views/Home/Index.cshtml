@@ -8,6 +8,13 @@
 
 <div class="row">
     <h2 style="font-weight: bold; Calibri; margin-left:15px;">Events</h2>
+
+    <form method="get" align="center">
+        <input type="search" name="searchTerm" />
+        <input type="submit" value="Search By Title" />
+    </form>
+    
+
     @foreach (var item in Model)
     {
         <div style="margin-top: 20px;" class="col-sm-6 col-md-4">
@@ -50,4 +57,4 @@
 
 </div>
 
-@Html.PagedListPager(Model, i => Url.Action("Index", "Home", new { i, page=Request.QueryString["page"] }));
+@Html.PagedListPager(Model, i => Url.Action("Index", "Home", new { i, page=Request.QueryString["page"] }))

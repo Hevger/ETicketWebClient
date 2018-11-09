@@ -10,6 +10,7 @@ namespace ETicketWebClient.Models
     public class ApplicationUser : IdentityUser
     {
         public string FullName { get; set; }
+        override
         public string PhoneNumber { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)

@@ -6,15 +6,14 @@ using System.Web.Mvc;
 using PagedList.Mvc;
 using PagedList;
 
-
 namespace ETicketWebClient.Controllers
 {
     public class HomeController : Controller
     {
         ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient();
-        public ActionResult Index(int? i)
+        public ActionResult Index(int? i, string searchTerm = null)
         {
-            var events = eventClient.GetAllEvents();
+            var events = eventClient.GetAllEvents().Where(e => searchTerm == null || e.Title.StartsWith(searchTerm, StringComparison.OrdinalIgnoreCase) || e.Title.Contains(searchTerm));
             return View(events.ToList().ToPagedList(i ?? 1, 4));
         }
 
