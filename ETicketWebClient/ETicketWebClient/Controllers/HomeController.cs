@@ -14,7 +14,7 @@ namespace ETicketWebClient.Controllers
         public ActionResult Index(int? i, string searchTerm = null)
         {
             var events = eventClient.GetAllEvents().Where(e => searchTerm == null || e.Title.StartsWith(searchTerm, StringComparison.OrdinalIgnoreCase) || e.Title.Contains(searchTerm));
-            return View(events.ToList().ToPagedList(i ?? 1, 4));
+            return View(events.ToList().ToPagedList(i ?? 1, 6));
         }
 
         public ActionResult About()

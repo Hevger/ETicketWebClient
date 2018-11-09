@@ -4,7 +4,7 @@
     ViewBag.Title = "Events";
 }
 
-<h2>Index</h2>
+<h2>Events</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -17,9 +17,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.Gate)
         </th>
@@ -47,9 +45,7 @@
             @{ var Date = item.Date.ToString("dd-MM-yyyy"); }
             @Html.DisplayFor(modelItem => Date)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.Gate)
         </td>

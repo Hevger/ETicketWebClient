@@ -20,7 +20,8 @@ namespace ETicketWebClient.Controllers
         // GET: Event/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var myEvent = eventClient.GetEvent(id);
+            return View(myEvent);
         }
 
         // GET: Event/Create
@@ -53,6 +54,7 @@ namespace ETicketWebClient.Controllers
 
         // POST: Event/Edit/5
         [HttpPost]
+        [Authorize]
         public ActionResult Edit(int id, FormCollection collection)
         {
             try

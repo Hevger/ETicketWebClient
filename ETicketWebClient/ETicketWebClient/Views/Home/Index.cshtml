@@ -9,22 +9,23 @@
 <div class="row">
     <h2 style="font-weight: bold; Calibri; margin-left:15px;">Events</h2>
 
-    <form method="get" align="center">
-        <input type="search" name="searchTerm" />
-        <input type="submit" value="Search By Title" />
+    <form style="width: 360px; display: flex; justify-content: space-between; margin: auto;" method="get">
+        <input type="search" class="form-control" name="searchTerm" />
+        <input  class="btn btn-danger" type="submit" value="Search" />
     </form>
-    
+
 
     @foreach (var item in Model)
     {
         <div style="margin-top: 20px;" class="col-sm-6 col-md-4">
             <div class="thumbnail">
                 <div class="caption">
-                    <img style="display: block; margin-left: auto; margin-right: auto; width: 100%;" src="https://picsum.photos/300/200" />
-                    <h3>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </h3>
-
+                    <a href="/Event/Details/@Html.DisplayFor(modelItem => item.EventId)">
+                        <img style="display: block; margin-left: auto; margin-right: auto; width: 100%;" src="https://picsum.photos/300/200" />
+                        <h3>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </h3>
+                    </a>
                     @{ var GateOpens = item.GateOpens.ToString("HH:mm"); }
                     @{ var StartTime = item.StartTime.ToString("HH:mm"); }
 
@@ -35,8 +36,15 @@
                     <b>Available Tickets: </b> @Html.DisplayFor(modelItem => item.AvailableTickets)
 
 
-                    <p style="margin-top: 10px;">
-                        @Html.DisplayFor(modelItem => item.Description)
+                    <p style="margin-top: 10px; min-height: 90px;">
+                        @{
+                            var Description = item.Description;
+                            if (Description.Length > 200)
+                            {
+                                Description = Description.Substring(0, 200);
+                            }
+                        }
+                        @Html.DisplayFor(modelItem => Description)
                     <p>
                         <b>Gate: </b> @Html.DisplayFor(modelItem => item.Gate)
                         <br />
@@ -48,7 +56,7 @@
                     </p>
                     </p>
                     <p>
-                        <a href="/Event/@Html.DisplayFor(modelItem => item.EventId)" class="btn btn-primary" role="button">Buy</a>
+                        <a href="/Event/Details/@Html.DisplayFor(modelItem => item.EventId)" class="btn btn-primary" role="button">View</a>
                     </p>
                 </div>
             </div>
@@ -57,4 +65,4 @@
 
 </div>
 
-@Html.PagedListPager(Model, i => Url.Action("Index", "Home", new { i, page=Request.QueryString["page"] }))
+@Html.PagedListPager(Model, i => Url.Action("Index", "Home", new { i, page = Request.QueryString["page"] }))

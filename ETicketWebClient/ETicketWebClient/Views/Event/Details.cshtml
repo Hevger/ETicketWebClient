@@ -1,0 +1,84 @@
+﻿@model ETicketWebClient.ETicketService.Event
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>
+    @Html.DisplayFor(model => model.Title)
+</h2>
+@{ var Date = Model.Date.ToString("dd-MM-yyyy"); }
+<b>@Html.DisplayFor(model => Date)</b>
+
+<div>
+    <img style="display: block; margin-left: auto; margin-right: auto;" src="https://picsum.photos/500/300" />
+    <hr />
+    <p style="margin-bottom: 20px;">
+        @Html.DisplayFor(model => model.Description)
+    </p>
+
+    <div class="row">
+        <div class="col-xs-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.TicketPrice)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.TicketPrice)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.StartTime)
+                </dt>
+                <dd>
+                    @{ var StartTime = Model.StartTime.ToString("dd-MM-yyyy"); }
+                    @Html.DisplayFor(model => StartTime)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.GateOpens)
+                </dt>
+                <dd>
+                    @{ var GateOpens = Model.GateOpens.ToString("dd-MM-yyyy"); }
+                    @Html.DisplayFor(model => GateOpens)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Gate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Gate)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.AvailableTickets)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.AvailableTickets)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-xs-6">
+            @if (User.Identity.IsAuthenticated)
+            {
+
+                <form method="POST">
+                    <input style="display: block; margin-left: auto; margin-right: auto; " type="number" name="quantity" id="quantity" />
+                    <br />
+                    <input type="submit" name="buy" id="buy" value="Buy" style="display: block; margin-left: auto; margin-right: auto; " class="btn btn-success" />
+                </form>
+            }
+            else
+            {
+                  <b>Please <a href="/Account/Login">login</a> to buy tickets</b>
+            }
+        </div>
+
+    </div>
+
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.EventId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
