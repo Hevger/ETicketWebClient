@@ -49,19 +49,25 @@ namespace ETicketWebClient.Controllers
         // GET: Event/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var myEvent = eventClient.GetEvent(id);
+
+            return View(myEvent);
         }
 
         // POST: Event/Edit/5
         [HttpPost]
         [Authorize]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, FormCollection collection, Event myEvent)
         {
             try
             {
-                // TODO: Add update logic here
+                if (ModelState.IsValid)
+                {
+                    eventClient.UpdateEvent(myEvent);
+                    return RedirectToAction("Index");
 
-                return RedirectToAction("Index");
+                }
+                return View(myEvent);
             }
             catch
             {
