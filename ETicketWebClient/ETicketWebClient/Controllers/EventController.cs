@@ -78,7 +78,8 @@ namespace ETicketWebClient.Controllers
         // GET: Event/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var myEvent = eventClient.GetEvent(id);
+            return View(myEvent);
         }
 
         // POST: Event/Delete/5
@@ -87,9 +88,13 @@ namespace ETicketWebClient.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                if (ModelState.IsValid)
+                {
+                    eventClient.DeleteEvent(id);
 
+                }
                 return RedirectToAction("Index");
+
             }
             catch
             {
