@@ -26,12 +26,15 @@ namespace ETicketWebClient.Controllers
         }
 
         // GET: Event/Create
+        [Authorize]
+
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Event/Create
+        [Authorize]
         [HttpPost]
         public ActionResult Create(FormCollection collection, Event myEvent)
         {
@@ -48,6 +51,7 @@ namespace ETicketWebClient.Controllers
         }
 
         // GET: Event/Edit/5
+        [Authorize]
         public ActionResult Edit(int id)
         {
             var myEvent = eventClient.GetEvent(id);
@@ -77,6 +81,7 @@ namespace ETicketWebClient.Controllers
         }
 
         // GET: Event/Delete/5
+        [Authorize]
         public ActionResult Delete(int id)
         {
             
@@ -85,6 +90,7 @@ namespace ETicketWebClient.Controllers
         }
 
         // POST: Event/Delete/5
+        [Authorize]
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
