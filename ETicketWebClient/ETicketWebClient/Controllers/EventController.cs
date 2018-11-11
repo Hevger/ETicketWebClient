@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -78,6 +79,7 @@ namespace ETicketWebClient.Controllers
         // GET: Event/Delete/5
         public ActionResult Delete(int id)
         {
+            
             var myEvent = eventClient.GetEvent(id);
             return View(myEvent);
         }
