@@ -311,6 +311,9 @@ namespace ETicketWebClient.ETicketService {
         private System.DateTime DateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EventIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrderIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -354,6 +357,19 @@ namespace ETicketWebClient.ETicketService {
                 if ((this.DateField.Equals(value) != true)) {
                     this.DateField = value;
                     this.RaisePropertyChanged("Date");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EventId {
+            get {
+                return this.EventIdField;
+            }
+            set {
+                if ((this.EventIdField.Equals(value) != true)) {
+                    this.EventIdField = value;
+                    this.RaisePropertyChanged("EventId");
                 }
             }
         }
@@ -730,10 +746,10 @@ namespace ETicketWebClient.ETicketService {
         System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Order> GetOrderAsync(int id);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/CreateOrder", ReplyAction="http://tempuri.org/IOrderService/CreateOrderResponse")]
-        void CreateOrder(ETicketWebClient.ETicketService.Order myOrder);
+        int CreateOrder(ETicketWebClient.ETicketService.Order myOrder);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/CreateOrder", ReplyAction="http://tempuri.org/IOrderService/CreateOrderResponse")]
-        System.Threading.Tasks.Task CreateOrderAsync(ETicketWebClient.ETicketService.Order myOrder);
+        System.Threading.Tasks.Task<int> CreateOrderAsync(ETicketWebClient.ETicketService.Order myOrder);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/DeleteOrder", ReplyAction="http://tempuri.org/IOrderService/DeleteOrderResponse")]
         void DeleteOrder(int id);
@@ -789,11 +805,11 @@ namespace ETicketWebClient.ETicketService {
             return base.Channel.GetOrderAsync(id);
         }
         
-        public void CreateOrder(ETicketWebClient.ETicketService.Order myOrder) {
-            base.Channel.CreateOrder(myOrder);
+        public int CreateOrder(ETicketWebClient.ETicketService.Order myOrder) {
+            return base.Channel.CreateOrder(myOrder);
         }
         
-        public System.Threading.Tasks.Task CreateOrderAsync(ETicketWebClient.ETicketService.Order myOrder) {
+        public System.Threading.Tasks.Task<int> CreateOrderAsync(ETicketWebClient.ETicketService.Order myOrder) {
             return base.Channel.CreateOrderAsync(myOrder);
         }
         

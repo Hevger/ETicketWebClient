@@ -148,7 +148,9 @@
   </xs:element>
   <xs:element name="CreateOrderResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CreateOrderResult" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteOrder">

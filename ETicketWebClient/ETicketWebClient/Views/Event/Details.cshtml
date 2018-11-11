@@ -21,10 +21,10 @@
         <div class="col-xs-6">
             <dl class="dl-horizontal">
                 <dt>
-                    @Html.DisplayNameFor(model => model.TicketPrice)
+                    @Html.DisplayNameFor(model => model.TicketPrice) 
                 </dt>
                 <dd>
-                    @Html.DisplayFor(model => model.TicketPrice)
+                    @Html.DisplayFor(model => model.TicketPrice) DKK
                 </dd>
 
                 <dt>
@@ -61,12 +61,16 @@
         <div class="col-xs-6">
             @if (User.Identity.IsAuthenticated)
             {
+                
 
-                <form method="POST">
+                <form method="POST" action="/Order/Create">
                     <input style="display: block; margin-left: auto; margin-right: auto; " type="number" name="quantity" id="quantity" />
+                    <input type="hidden" id="EventId" name="EventId" value="@Model.EventId" /> 
+                   
                     <br />
                     <input type="submit" name="buy" id="buy" value="Buy" style="display: block; margin-left: auto; margin-right: auto; " class="btn btn-success" />
                 </form>
+
             }
             else
             {
@@ -74,7 +78,7 @@
             }
         </div>
 
-    </div>
+    </div>  
 
 
 </div>

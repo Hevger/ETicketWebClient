@@ -40,6 +40,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Date" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="EventId" type="xs:int" />
       <xs:element minOccurs="0" name="OrderId" type="xs:int" />
       <xs:element minOccurs="0" name="Quantity" type="xs:int" />
       <xs:element minOccurs="0" name="Tickets" nillable="true" type="tns:ArrayOfTicket" />
