@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using ETicketWebClient.Models;
 
 namespace ETicketWebClient.Controllers
 {
@@ -32,19 +33,21 @@ namespace ETicketWebClient.Controllers
 
         // GET: Order/Create
         [HttpPost]
-        public ActionResult Create()
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(OrderFormViewModel orderFormViewModel)
         {
             string UserId = User.Identity.GetUserId();
-            int EventId = int.Parse(Request.Form["EventId"]);
-            int quantity = int.Parse(Request.Form["quantity"]);
+            int EventId = orderFormViewModel.EventId;
+            int Quantity = orderFormViewModel.Quantity;
+
 
             Order order = new Order();
-            order.Quantity = quantity;
+            order.Quantity = Quantity;
             order.CustomerId = UserId;
             order.EventId = EventId;
             order.Date = DateTime.Now.Date;
             decimal ticketPrice = eventClient.GetEvent(EventId).TicketPrice;
-            decimal totalPrice = ticketPrice * quantity;
+            decimal totalPrice = ticketPrice * Quantity;
             order.TotalPrice = totalPrice;
 
             var myOrder = orderClient.CreateOrder(order);
