@@ -8,19 +8,18 @@
       <xs:element minOccurs="0" name="EventId" type="xs:int" />
       <xs:element minOccurs="0" name="Gate" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GateOpens" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="ListOfSeats" nillable="true" type="tns:ArrayOfSeat" />
       <xs:element minOccurs="0" name="StartTime" type="xs:dateTime" />
       <xs:element minOccurs="0" name="TicketPrice" type="xs:decimal" />
       <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Event" nillable="true" type="tns:Event" />
-  <xs:complexType name="ArrayOfSeat">
+  <xs:complexType name="ArrayOfEvent">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Seat" nillable="true" type="tns:Seat" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Event" nillable="true" type="tns:Event" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfSeat" nillable="true" type="tns:ArrayOfSeat" />
+  <xs:element name="ArrayOfEvent" nillable="true" type="tns:ArrayOfEvent" />
   <xs:complexType name="Seat">
     <xs:sequence>
       <xs:element minOccurs="0" name="Available" type="xs:boolean" />
@@ -30,12 +29,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Seat" nillable="true" type="tns:Seat" />
-  <xs:complexType name="ArrayOfEvent">
+  <xs:complexType name="ArrayOfSeat">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Event" nillable="true" type="tns:Event" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Seat" nillable="true" type="tns:Seat" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfEvent" nillable="true" type="tns:ArrayOfEvent" />
+  <xs:element name="ArrayOfSeat" nillable="true" type="tns:ArrayOfSeat" />
   <xs:complexType name="Order">
     <xs:sequence>
       <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:string" />

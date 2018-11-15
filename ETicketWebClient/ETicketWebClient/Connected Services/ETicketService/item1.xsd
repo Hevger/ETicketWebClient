@@ -189,6 +189,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetOrdersOfCustomer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CustomerId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrdersOfCustomerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetOrdersOfCustomerResult" nillable="true" type="q13:ArrayOfOrder" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetTicket">
     <xs:complexType>
       <xs:sequence>
@@ -199,14 +213,14 @@
   <xs:element name="GetTicketResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetTicketResult" nillable="true" type="q13:Ticket" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetTicketResult" nillable="true" type="q14:Ticket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateTicket">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myTicket" nillable="true" type="q14:Ticket" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myTicket" nillable="true" type="q15:Ticket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -230,7 +244,7 @@
   <xs:element name="UpdateTicket">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myTicket" nillable="true" type="q15:Ticket" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myTicket" nillable="true" type="q16:Ticket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -247,7 +261,7 @@
   <xs:element name="GetAllTicketsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetAllTicketsResult" nillable="true" type="q16:ArrayOfTicket" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetAllTicketsResult" nillable="true" type="q17:ArrayOfTicket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

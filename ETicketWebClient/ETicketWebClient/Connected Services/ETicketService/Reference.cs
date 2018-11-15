@@ -41,9 +41,6 @@ namespace ETicketWebClient.ETicketService {
         private System.DateTime GateOpensField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private ETicketWebClient.ETicketService.Seat[] ListOfSeatsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime StartTimeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -136,19 +133,6 @@ namespace ETicketWebClient.ETicketService {
                 if ((this.GateOpensField.Equals(value) != true)) {
                     this.GateOpensField = value;
                     this.RaisePropertyChanged("GateOpens");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public ETicketWebClient.ETicketService.Seat[] ListOfSeats {
-            get {
-                return this.ListOfSeatsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ListOfSeatsField, value) != true)) {
-                    this.ListOfSeatsField = value;
-                    this.RaisePropertyChanged("ListOfSeats");
                 }
             }
         }
@@ -768,6 +752,12 @@ namespace ETicketWebClient.ETicketService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetAllOrders", ReplyAction="http://tempuri.org/IOrderService/GetAllOrdersResponse")]
         System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Order[]> GetAllOrdersAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetOrdersOfCustomer", ReplyAction="http://tempuri.org/IOrderService/GetOrdersOfCustomerResponse")]
+        ETicketWebClient.ETicketService.Order[] GetOrdersOfCustomer(string CustomerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetOrdersOfCustomer", ReplyAction="http://tempuri.org/IOrderService/GetOrdersOfCustomerResponse")]
+        System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Order[]> GetOrdersOfCustomerAsync(string CustomerId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -835,6 +825,14 @@ namespace ETicketWebClient.ETicketService {
         
         public System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Order[]> GetAllOrdersAsync() {
             return base.Channel.GetAllOrdersAsync();
+        }
+        
+        public ETicketWebClient.ETicketService.Order[] GetOrdersOfCustomer(string CustomerId) {
+            return base.Channel.GetOrdersOfCustomer(CustomerId);
+        }
+        
+        public System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Order[]> GetOrdersOfCustomerAsync(string CustomerId) {
+            return base.Channel.GetOrdersOfCustomerAsync(CustomerId);
         }
     }
     

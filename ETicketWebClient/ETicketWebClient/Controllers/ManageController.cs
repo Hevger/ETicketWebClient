@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ETicketWebClient.Models;
+using ETicketWebClient.ETicketService;
+using System.Collections.Generic;
 
 namespace ETicketWebClient.Controllers
 {
@@ -15,6 +17,8 @@ namespace ETicketWebClient.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient();
+
 
         public ManageController()
         {
@@ -49,6 +53,18 @@ namespace ETicketWebClient.Controllers
                 _userManager = value;
             }
         }
+
+
+
+        // GET All Customer Orders
+        public ActionResult GetCustomerOrders(string CustomerId)
+        {
+            CustomerId = User.Identity.GetUserId();
+            List<Order> orders = new List<Order>(orderClient.GetOrdersOfCustomer(CustomerId).Cast<Order>());
+            return View(orders);
+        }
+
+
 
         //
         // GET: /Manage/Index
