@@ -84,11 +84,7 @@ namespace ETicketWebClient.Controllers
         // Get Tickets of Order
         public ActionResult GetTicketsOfOrder(int id)
         {
-            //Order myOrder = orderClient.GetOrder(id);
-            //foreach (var ticket in myOrder)
-            //{
-                
-            //}
+            
             return null;
         }
 
