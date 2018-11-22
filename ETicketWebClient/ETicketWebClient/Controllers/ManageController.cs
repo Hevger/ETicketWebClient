@@ -36,9 +36,9 @@ namespace ETicketWebClient.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -64,6 +64,33 @@ namespace ETicketWebClient.Controllers
             return View(orders);
         }
 
+
+        [Authorize]
+        // Get Order Info
+        public ActionResult Details(int id)
+        {
+            Order myOrder = orderClient.GetOrder(id);
+            if (myOrder.CustomerId != User.Identity.GetUserId())
+            {
+                return Content("The requested order isn't yours...");
+            }
+            else
+            {
+                return View(myOrder);
+            }
+        }
+
+
+        // Get Tickets of Order
+        public ActionResult GetTicketsOfOrder(int id)
+        {
+            //Order myOrder = orderClient.GetOrder(id);
+            //foreach (var ticket in myOrder)
+            //{
+                
+            //}
+            return null;
+        }
 
 
         //
@@ -349,7 +376,7 @@ namespace ETicketWebClient.Controllers
             base.Dispose(disposing);
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -400,6 +427,6 @@ namespace ETicketWebClient.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }
