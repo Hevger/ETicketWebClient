@@ -18,6 +18,7 @@ namespace ETicketWebClient.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient();
+        ETicketService.SeatServiceClient seatClient = new ETicketService.SeatServiceClient();
 
 
         public ManageController()
@@ -84,8 +85,26 @@ namespace ETicketWebClient.Controllers
         // Get Tickets of Order
         public ActionResult GetTicketsOfOrder(int id)
         {
-            
-            return null;
+            var tickets = orderClient.GetOrderTickets(id);
+            Order myOrder = orderClient.GetOrder(id);
+            TicketSeatViewModel ticketWithSeat = new TicketSeatViewModel();
+            List<TicketSeatViewModel> allTicketsWithSeat = new List<TicketSeatViewModel>();
+
+            foreach (var ticket in tickets)
+            {
+                Ticket currentTicket = new Ticket
+                {
+                    TicketId = ticket.TicketId,
+                    SeatId = ticket.SeatId,
+                    EventId = ticket.EventId,
+                    CustomerId = ticket.CustomerId
+                };
+                ticketWithSeat.Ticket = currentTicket;
+                ticketWithSeat.Seat = seatClient.GetSeat(ticketWithSeat.Ticket.SeatId);
+                allTicketsWithSeat.Add(ticketWithSeat);
+            }
+
+            return PartialView(ticketWithSeat);
         }
 
 

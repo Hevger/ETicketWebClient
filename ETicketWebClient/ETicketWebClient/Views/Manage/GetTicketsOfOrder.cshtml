@@ -1,0 +1,21 @@
+﻿@model System.Collections.Generic.IEnumerable<ETicketWebClient.Models.TicketSeatViewModel>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayNameFor(model => model.Seat.SeatNumber)
+
+            </td>
+        </tr>
+    }
+
+</table>

@@ -226,6 +226,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\OrderFormViewModel.cs" />
+    <Compile Include="Models\TicketSeatViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -364,6 +365,7 @@
     <Content Include="Views\Event\Delete.cshtml" />
     <Content Include="Views\Manage\GetCustomerOrders.cshtml" />
     <Content Include="Views\Manage\Details.cshtml" />
+    <Content Include="Views\Manage\GetTicketsOfOrder.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

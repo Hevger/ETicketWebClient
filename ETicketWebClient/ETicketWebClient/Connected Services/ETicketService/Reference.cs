@@ -758,6 +758,12 @@ namespace ETicketWebClient.ETicketService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetOrdersOfCustomer", ReplyAction="http://tempuri.org/IOrderService/GetOrdersOfCustomerResponse")]
         System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Order[]> GetOrdersOfCustomerAsync(string CustomerId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetOrderTickets", ReplyAction="http://tempuri.org/IOrderService/GetOrderTicketsResponse")]
+        ETicketWebClient.ETicketService.Ticket[] GetOrderTickets(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetOrderTickets", ReplyAction="http://tempuri.org/IOrderService/GetOrderTicketsResponse")]
+        System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Ticket[]> GetOrderTicketsAsync(int id);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -833,6 +839,14 @@ namespace ETicketWebClient.ETicketService {
         
         public System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Order[]> GetOrdersOfCustomerAsync(string CustomerId) {
             return base.Channel.GetOrdersOfCustomerAsync(CustomerId);
+        }
+        
+        public ETicketWebClient.ETicketService.Ticket[] GetOrderTickets(int id) {
+            return base.Channel.GetOrderTickets(id);
+        }
+        
+        public System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Ticket[]> GetOrderTicketsAsync(int id) {
+            return base.Channel.GetOrderTicketsAsync(id);
         }
     }
     

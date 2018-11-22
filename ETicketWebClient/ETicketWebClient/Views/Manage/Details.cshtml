@@ -51,9 +51,7 @@
             @Html.DisplayFor(model => model.TotalPrice)
         </dd>
 
+        @Html.Action("GetTicketsOfOrder", "Manage")
+
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.OrderId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
