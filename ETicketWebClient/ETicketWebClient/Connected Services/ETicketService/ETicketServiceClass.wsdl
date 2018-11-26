@@ -109,6 +109,12 @@
   <wsdl:message name="IOrderService_GetOrderTickets_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetOrderTicketsResponse" />
   </wsdl:message>
+  <wsdl:message name="IOrderService_Cancel_InputMessage">
+    <wsdl:part name="parameters" element="tns:Cancel" />
+  </wsdl:message>
+  <wsdl:message name="IOrderService_Cancel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelResponse" />
+  </wsdl:message>
   <wsdl:message name="ITicketService_GetTicket_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTicket" />
   </wsdl:message>
@@ -211,6 +217,10 @@
     <wsdl:operation name="GetOrderTickets">
       <wsdl:input wsaw:Action="http://tempuri.org/IOrderService/GetOrderTickets" message="tns:IOrderService_GetOrderTickets_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/GetOrderTicketsResponse" message="tns:IOrderService_GetOrderTickets_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Cancel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOrderService/Cancel" message="tns:IOrderService_Cancel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IOrderService/CancelResponse" message="tns:IOrderService_Cancel_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="ITicketService">
@@ -389,6 +399,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetOrderTickets">
       <soap:operation soapAction="http://tempuri.org/IOrderService/GetOrderTickets" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Cancel">
+      <soap:operation soapAction="http://tempuri.org/IOrderService/Cancel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

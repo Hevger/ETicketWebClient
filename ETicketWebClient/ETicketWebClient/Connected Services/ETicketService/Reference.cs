@@ -304,9 +304,6 @@ namespace ETicketWebClient.ETicketService {
         private int QuantityField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private ETicketWebClient.ETicketService.Ticket[] TicketsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal TotalPriceField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -380,19 +377,6 @@ namespace ETicketWebClient.ETicketService {
                 if ((this.QuantityField.Equals(value) != true)) {
                     this.QuantityField = value;
                     this.RaisePropertyChanged("Quantity");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public ETicketWebClient.ETicketService.Ticket[] Tickets {
-            get {
-                return this.TicketsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TicketsField, value) != true)) {
-                    this.TicketsField = value;
-                    this.RaisePropertyChanged("Tickets");
                 }
             }
         }
@@ -764,6 +748,12 @@ namespace ETicketWebClient.ETicketService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/GetOrderTickets", ReplyAction="http://tempuri.org/IOrderService/GetOrderTicketsResponse")]
         System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Ticket[]> GetOrderTicketsAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/Cancel", ReplyAction="http://tempuri.org/IOrderService/CancelResponse")]
+        void Cancel(ETicketWebClient.ETicketService.Order order);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOrderService/Cancel", ReplyAction="http://tempuri.org/IOrderService/CancelResponse")]
+        System.Threading.Tasks.Task CancelAsync(ETicketWebClient.ETicketService.Order order);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -847,6 +837,14 @@ namespace ETicketWebClient.ETicketService {
         
         public System.Threading.Tasks.Task<ETicketWebClient.ETicketService.Ticket[]> GetOrderTicketsAsync(int id) {
             return base.Channel.GetOrderTicketsAsync(id);
+        }
+        
+        public void Cancel(ETicketWebClient.ETicketService.Order order) {
+            base.Channel.Cancel(order);
+        }
+        
+        public System.Threading.Tasks.Task CancelAsync(ETicketWebClient.ETicketService.Order order) {
+            return base.Channel.CancelAsync(order);
         }
     }
     

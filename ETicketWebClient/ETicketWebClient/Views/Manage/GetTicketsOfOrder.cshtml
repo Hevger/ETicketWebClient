@@ -1,21 +1,35 @@
-﻿@model System.Collections.Generic.IEnumerable<ETicketWebClient.Models.TicketSeatViewModel>
+﻿@model IEnumerable<ETicketWebClient.Models.TicketSeatViewModel>
+@{ Layout = null; }
+<style>
+    .table, td, tr, th {
+        text-align: center;
+    }
+</style>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<br />
+<br />
+<h2>Tickets on this order</h2>
+
 <table class="table">
     <tr>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SeatNumber)
+        </th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayNameFor(model => model.Seat.SeatNumber)
-
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SeatNumber)
+        </td>
+      
+    </tr>
+}
 
 </table>

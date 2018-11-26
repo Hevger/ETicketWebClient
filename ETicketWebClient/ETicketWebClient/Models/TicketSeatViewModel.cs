@@ -8,7 +8,8 @@ namespace ETicketWebClient.Models
 {
     public class TicketSeatViewModel
     {
-        public Ticket Ticket { get; set; }
-        public Seat Seat { get; set; }
+        public int TicketId { get; set; }
+        public int EventId { get; set; }
+        public int SeatNumber { get; set; }
     }
 }

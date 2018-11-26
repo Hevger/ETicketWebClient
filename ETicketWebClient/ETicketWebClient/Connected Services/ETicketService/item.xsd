@@ -42,11 +42,16 @@
       <xs:element minOccurs="0" name="EventId" type="xs:int" />
       <xs:element minOccurs="0" name="OrderId" type="xs:int" />
       <xs:element minOccurs="0" name="Quantity" type="xs:int" />
-      <xs:element minOccurs="0" name="Tickets" nillable="true" type="tns:ArrayOfTicket" />
       <xs:element minOccurs="0" name="TotalPrice" type="xs:decimal" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Order" nillable="true" type="tns:Order" />
+  <xs:complexType name="ArrayOfOrder">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Order" nillable="true" type="tns:Order" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrder" nillable="true" type="tns:ArrayOfOrder" />
   <xs:complexType name="ArrayOfTicket">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Ticket" nillable="true" type="tns:Ticket" />
@@ -62,10 +67,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Ticket" nillable="true" type="tns:Ticket" />
-  <xs:complexType name="ArrayOfOrder">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Order" nillable="true" type="tns:Order" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfOrder" nillable="true" type="tns:ArrayOfOrder" />
 </xs:schema>

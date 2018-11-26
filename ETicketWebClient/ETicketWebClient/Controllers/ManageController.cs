@@ -19,6 +19,7 @@ namespace ETicketWebClient.Controllers
         private ApplicationUserManager _userManager;
         ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient();
         ETicketService.SeatServiceClient seatClient = new ETicketService.SeatServiceClient();
+        ETicketService.TicketServiceClient ticketClient = new TicketServiceClient();
 
 
         public ManageController()
@@ -60,7 +61,7 @@ namespace ETicketWebClient.Controllers
         // GET All Customer Orders
         public ActionResult GetCustomerOrders(string CustomerId)
         {
-            CustomerId = User.Identity.GetUserId();
+            CustomerId = User.Identity.GetUserId().ToString();
             List<Order> orders = new List<Order>(orderClient.GetOrdersOfCustomer(CustomerId).Cast<Order>());
             return View(orders);
         }
@@ -82,29 +83,41 @@ namespace ETicketWebClient.Controllers
         }
 
 
+        // Cancel 
+        [Authorize]
+        public ActionResult Cancel(int id)
+        {
+            Order order = orderClient.GetOrder(id);
+            string orderCustomer = order.CustomerId.ToString();
+
+            if (orderCustomer != User.Identity.GetUserId())
+            {
+                return Content("You can't delete order that isn't yours");
+            }
+            else
+            {
+                orderClient.Cancel(order);
+                return Content("Ok");
+            }
+        }
+
         // Get Tickets of Order
         public ActionResult GetTicketsOfOrder(int id)
         {
             var tickets = orderClient.GetOrderTickets(id);
-            Order myOrder = orderClient.GetOrder(id);
-            TicketSeatViewModel ticketWithSeat = new TicketSeatViewModel();
-            List<TicketSeatViewModel> allTicketsWithSeat = new List<TicketSeatViewModel>();
+            List<TicketSeatViewModel> myList = new List<TicketSeatViewModel>();
 
             foreach (var ticket in tickets)
             {
-                Ticket currentTicket = new Ticket
-                {
-                    TicketId = ticket.TicketId,
-                    SeatId = ticket.SeatId,
-                    EventId = ticket.EventId,
-                    CustomerId = ticket.CustomerId
-                };
-                ticketWithSeat.Ticket = currentTicket;
-                ticketWithSeat.Seat = seatClient.GetSeat(ticketWithSeat.Ticket.SeatId);
-                allTicketsWithSeat.Add(ticketWithSeat);
+                TicketSeatViewModel ticketWithSeat = new TicketSeatViewModel();
+                ticketWithSeat.TicketId = ticket.TicketId;
+                ticketWithSeat.EventId = ticket.EventId;
+                ticketWithSeat.SeatNumber = seatClient.GetSeat(ticket.SeatId).SeatNumber;
+
+                myList.Add(ticketWithSeat);
             }
 
-            return PartialView(ticketWithSeat);
+            return View(myList);
         }
 
 
