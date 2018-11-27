@@ -33,7 +33,16 @@
                     @{ var Date = item.Date.ToString("dd-MM-yyyy"); }
                     @Html.DisplayFor(modelItem => Date)
                     <br />
-                    <b>Available Tickets: </b> @Html.DisplayFor(modelItem => item.AvailableTickets)
+                    @if (item.AvailableTickets <= 0)
+                    {
+                        <b>Available Tickets: <b style="color: red;">SOLD OUT !</b></b>
+                    }
+                    else
+                    {
+                        <b>Available Tickets: </b> @Html.DisplayFor(modelItem => item.AvailableTickets)
+
+                    }
+
 
 
                     <p style="margin-top: 10px; min-height: 90px;">

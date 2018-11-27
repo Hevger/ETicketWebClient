@@ -92,12 +92,14 @@ namespace ETicketWebClient.Controllers
 
             if (orderCustomer != User.Identity.GetUserId())
             {
-                return Content("You can't delete order that isn't yours");
+                ViewBag.Message = "You can't delete order that isn't yours";
+                return View();
             }
             else
             {
                 orderClient.Cancel(order);
-                return Content("Ok");
+                ViewBag.Message = "Canceled";
+                return View();
             }
         }
 

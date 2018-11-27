@@ -17,7 +17,11 @@ namespace ETicketWebClient.Migrations
 
         protected override void Seed(ETicketWebClient.Models.ApplicationDbContext context)
         {
-            if(!context.Users.Any(u => u.UserName == "darwish.mammo@gmail.com"))
+            //  This method will be called after migrating to the latest version.
+
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data.
+            if (!context.Users.Any(u => u.UserName == "darwish.mammo@gmail.com"))
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
                 var roleManager = new RoleManager<IdentityRole>(roleStore);
@@ -25,13 +29,14 @@ namespace ETicketWebClient.Migrations
                 var userStore = new UserStore<ApplicationUser>(context);
                 var userManager = new UserManager<ApplicationUser>(userStore);
 
-                var user = new ApplicationUser { FullName = "Darwish", Email = "darwish.mammo@gmail.com", UserName = "darwish.mammo@gmail.com"};
+                var user = new ApplicationUser { FullName = "Administrator", Email = "admin@eticket.com", UserName = "admin@eticket.com" };
 
-                userManager.Create(user, "Test.1234");
+                userManager.Create(user, "User1234!");
                 roleManager.Create(new IdentityRole { Name = "admin" });
                 roleManager.Create(new IdentityRole { Name = "customer" });
                 userManager.AddToRole(user.Id, "admin");
             }
+
         }
     }
 }

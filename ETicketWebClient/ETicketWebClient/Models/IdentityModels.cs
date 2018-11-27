@@ -34,11 +34,11 @@ namespace ETicketWebClient.Models
         {
             base.OnModelCreating(modelBuilder); // This needs to go before the other rules!
 
-            modelBuilder.Entity<ApplicationUser>().ToTable("Customer");
+            modelBuilder.Entity<ApplicationUser>().ToTable("Users");
             modelBuilder.Entity<IdentityRole>().ToTable("Role");
-            modelBuilder.Entity<IdentityUserRole>().ToTable("CustomerRole");
-            modelBuilder.Entity<IdentityUserClaim>().ToTable("CustomerClaim");
-            modelBuilder.Entity<IdentityUserLogin>().ToTable("CustomerLogin");
+            modelBuilder.Entity<IdentityUserRole>().ToTable("UserRole");
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaim");
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogin");
         }
 
 

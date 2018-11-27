@@ -13,7 +13,7 @@ namespace ETicketWebClient.Controllers
         ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient();
         public ActionResult Index(int? i, string searchTerm = null)
         {
-            var events = eventClient.GetAllEvents().Where(e => searchTerm == null || e.Title.StartsWith(searchTerm, StringComparison.OrdinalIgnoreCase) || e.Title.Contains(searchTerm));
+            var events = eventClient.GetAllEvents().Where(e => searchTerm == null || e.Title.StartsWith(searchTerm, StringComparison.OrdinalIgnoreCase) || e.Title.Contains(searchTerm)).OrderBy(e => e.Date);
             return View(events.ToList().ToPagedList(i ?? 1, 6));
         }
 

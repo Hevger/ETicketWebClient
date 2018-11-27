@@ -32,6 +32,7 @@ namespace ETicketWebClient.Controllers
 
 
         // GET: Order/Create
+        [Authorize(Roles = "customer, admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(OrderFormViewModel orderFormViewModel)
@@ -51,7 +52,21 @@ namespace ETicketWebClient.Controllers
             order.TotalPrice = totalPrice;
 
             var myOrder = orderClient.CreateOrder(order);
-            return Content("Ok");
+            if (orderClient.GetOrder(myOrder) == null)
+            {
+                ViewBag.Message = "Order not placed, please try again!";
+            }
+            else
+            {
+                ViewBag.Message = "Order placed :)";
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
         }
 
         // POST: Order/Create
@@ -77,6 +92,7 @@ namespace ETicketWebClient.Controllers
         }
 
         // POST: Order/Edit/5
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {

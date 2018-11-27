@@ -11,7 +11,9 @@ namespace ETicketWebClient.Controllers
     public class EventController : Controller
     {
         ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient();
+   
         // GET: Event
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             var events = eventClient.GetAllEvents();
@@ -26,15 +28,14 @@ namespace ETicketWebClient.Controllers
         }
 
         // GET: Event/Create
-        [Authorize]
-
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Event/Create
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult Create(FormCollection collection, Event myEvent)
         {
@@ -51,7 +52,7 @@ namespace ETicketWebClient.Controllers
         }
 
         // GET: Event/Edit/5
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
         {
             var myEvent = eventClient.GetEvent(id);
@@ -61,7 +62,7 @@ namespace ETicketWebClient.Controllers
 
         // POST: Event/Edit/5
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Edit(int id, FormCollection collection, Event myEvent)
         {
             try
@@ -81,7 +82,7 @@ namespace ETicketWebClient.Controllers
         }
 
         // GET: Event/Delete/5
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {
             
@@ -90,7 +91,7 @@ namespace ETicketWebClient.Controllers
         }
 
         // POST: Event/Delete/5
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
