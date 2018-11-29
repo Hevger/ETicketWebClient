@@ -37,6 +37,12 @@
   <wsdl:message name="IEventService_GetAllEvents_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetAllEventsResponse" />
   </wsdl:message>
+  <wsdl:message name="IAdminService_GetAdminInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdminInfo" />
+  </wsdl:message>
+  <wsdl:message name="IAdminService_GetAdminInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAdminInfoResponse" />
+  </wsdl:message>
   <wsdl:message name="ISeatService_GetSeat_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSeat" />
   </wsdl:message>
@@ -167,6 +173,12 @@
       <wsdl:output wsaw:Action="http://tempuri.org/IEventService/GetAllEventsResponse" message="tns:IEventService_GetAllEvents_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
+  <wsdl:portType name="IAdminService">
+    <wsdl:operation name="GetAdminInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAdminService/GetAdminInfo" message="tns:IAdminService_GetAdminInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAdminService/GetAdminInfoResponse" message="tns:IAdminService_GetAdminInfo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
   <wsdl:portType name="ISeatService">
     <wsdl:operation name="GetSeat">
       <wsdl:input wsaw:Action="http://tempuri.org/ISeatService/GetSeat" message="tns:ISeatService_GetSeat_InputMessage" />
@@ -285,6 +297,18 @@
     </wsdl:operation>
     <wsdl:operation name="GetAllEvents">
       <soap:operation soapAction="http://tempuri.org/IEventService/GetAllEvents" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="BasicHttpBinding_IAdminService" type="tns:IAdminService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAdminInfo">
+      <soap:operation soapAction="http://tempuri.org/IAdminService/GetAdminInfo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -466,6 +490,9 @@
   </wsdl:binding>
   <wsdl:service name="ETicketServiceClass">
     <wsdl:port name="BasicHttpBinding_IEventService" binding="tns:BasicHttpBinding_IEventService">
+      <soap:address location="http://localhost:8080/ETicketService" />
+    </wsdl:port>
+    <wsdl:port name="BasicHttpBinding_IAdminService" binding="tns:BasicHttpBinding_IAdminService">
       <soap:address location="http://localhost:8080/ETicketService" />
     </wsdl:port>
     <wsdl:port name="BasicHttpBinding_ISeatService" binding="tns:BasicHttpBinding_ISeatService">

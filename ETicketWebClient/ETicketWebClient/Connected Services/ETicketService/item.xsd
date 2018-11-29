@@ -20,6 +20,13 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfEvent" nillable="true" type="tns:ArrayOfEvent" />
+  <xs:complexType name="AdminInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AdminInfo" nillable="true" type="tns:AdminInfo" />
   <xs:complexType name="Seat">
     <xs:sequence>
       <xs:element minOccurs="0" name="Available" type="xs:boolean" />

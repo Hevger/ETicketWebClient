@@ -63,6 +63,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetAdminInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AdminUsername" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAdminInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetAdminInfoResult" nillable="true" type="q5:AdminInfo" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetSeat">
     <xs:complexType>
       <xs:sequence>
@@ -73,7 +87,7 @@
   <xs:element name="GetSeatResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetSeatResult" nillable="true" type="q5:Seat" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetSeatResult" nillable="true" type="q6:Seat" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -92,7 +106,7 @@
   <xs:element name="CreateSeat">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="mySeat" nillable="true" type="q6:Seat" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="mySeat" nillable="true" type="q7:Seat" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -104,7 +118,7 @@
   <xs:element name="UpdateSeat">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="mySeat" nillable="true" type="q7:Seat" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="mySeat" nillable="true" type="q8:Seat" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -121,7 +135,7 @@
   <xs:element name="GetAllSeatsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetAllSeatsResult" nillable="true" type="q8:ArrayOfSeat" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetAllSeatsResult" nillable="true" type="q9:ArrayOfSeat" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -135,14 +149,14 @@
   <xs:element name="GetOrderResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetOrderResult" nillable="true" type="q9:Order" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetOrderResult" nillable="true" type="q10:Order" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateOrder">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myOrder" nillable="true" type="q10:Order" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myOrder" nillable="true" type="q11:Order" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -168,7 +182,7 @@
   <xs:element name="UpdateOrder">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myOrder" nillable="true" type="q11:Order" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myOrder" nillable="true" type="q12:Order" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -185,7 +199,7 @@
   <xs:element name="GetAllOrdersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetAllOrdersResult" nillable="true" type="q12:ArrayOfOrder" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetAllOrdersResult" nillable="true" type="q13:ArrayOfOrder" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -199,7 +213,7 @@
   <xs:element name="GetOrdersOfCustomerResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetOrdersOfCustomerResult" nillable="true" type="q13:ArrayOfOrder" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetOrdersOfCustomerResult" nillable="true" type="q14:ArrayOfOrder" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -213,14 +227,14 @@
   <xs:element name="GetOrderTicketsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetOrderTicketsResult" nillable="true" type="q14:ArrayOfTicket" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetOrderTicketsResult" nillable="true" type="q15:ArrayOfTicket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="Cancel">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="order" nillable="true" type="q15:Order" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="order" nillable="true" type="q16:Order" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -239,14 +253,14 @@
   <xs:element name="GetTicketResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetTicketResult" nillable="true" type="q16:Ticket" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetTicketResult" nillable="true" type="q17:Ticket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CreateTicket">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myTicket" nillable="true" type="q17:Ticket" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myTicket" nillable="true" type="q18:Ticket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -270,7 +284,7 @@
   <xs:element name="UpdateTicket">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myTicket" nillable="true" type="q18:Ticket" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="myTicket" nillable="true" type="q19:Ticket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -287,7 +301,7 @@
   <xs:element name="GetAllTicketsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetAllTicketsResult" nillable="true" type="q19:ArrayOfTicket" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Domain" minOccurs="0" name="GetAllTicketsResult" nillable="true" type="q20:ArrayOfTicket" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
