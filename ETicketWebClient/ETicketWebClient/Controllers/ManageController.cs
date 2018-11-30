@@ -17,9 +17,9 @@ namespace ETicketWebClient.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient();
-        ETicketService.SeatServiceClient seatClient = new ETicketService.SeatServiceClient();
-        ETicketService.TicketServiceClient ticketClient = new TicketServiceClient();
+       // ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient();
+       // ETicketService.SeatServiceClient seatClient = new ETicketService.SeatServiceClient();
+       // ETicketService.TicketServiceClient ticketClient = new TicketServiceClient();
 
 
         public ManageController()
@@ -61,9 +61,15 @@ namespace ETicketWebClient.Controllers
         // GET All Customer Orders
         public ActionResult GetCustomerOrders(string CustomerId)
         {
-            CustomerId = User.Identity.GetUserId().ToString();
-            List<Order> orders = new List<Order>(orderClient.GetOrdersOfCustomer(CustomerId).Cast<Order>());
-            return View(orders);
+            using (ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient())
+            {
+                orderClient.ClientCredentials.UserName.UserName = "ETicket";
+                orderClient.ClientCredentials.UserName.Password = "ETicketPass";
+
+                CustomerId = User.Identity.GetUserId().ToString();
+                List<Order> orders = new List<Order>(orderClient.GetOrdersOfCustomer(CustomerId).Cast<Order>());
+                return View(orders);
+            }
         }
 
 
@@ -71,14 +77,19 @@ namespace ETicketWebClient.Controllers
         // Get Order Info
         public ActionResult Details(int id)
         {
-            Order myOrder = orderClient.GetOrder(id);
-            if (myOrder.CustomerId != User.Identity.GetUserId())
+            using (ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient())
             {
-                return Content("The requested order isn't yours...");
-            }
-            else
-            {
-                return View(myOrder);
+                orderClient.ClientCredentials.UserName.UserName = "ETicket";
+                orderClient.ClientCredentials.UserName.Password = "ETicketPass";
+                Order myOrder = orderClient.GetOrder(id);
+                if (myOrder.CustomerId != User.Identity.GetUserId())
+                {
+                    return Content("The requested order isn't yours...");
+                }
+                else
+                {
+                    return View(myOrder);
+                }
             }
         }
 
@@ -87,39 +98,55 @@ namespace ETicketWebClient.Controllers
         [Authorize]
         public ActionResult Cancel(int id)
         {
-            Order order = orderClient.GetOrder(id);
-            string orderCustomer = order.CustomerId.ToString();
+            using (ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient())
+            {
+                orderClient.ClientCredentials.UserName.UserName = "ETicket";
+                orderClient.ClientCredentials.UserName.Password = "ETicketPass";
+                Order order = orderClient.GetOrder(id);
+                string orderCustomer = order.CustomerId.ToString();
 
-            if (orderCustomer != User.Identity.GetUserId())
-            {
-                ViewBag.Message = "You can't delete order that isn't yours";
-                return View();
-            }
-            else
-            {
-                orderClient.Cancel(order);
-                ViewBag.Message = "Canceled";
-                return View();
+                if (orderCustomer != User.Identity.GetUserId())
+                {
+                    ViewBag.Message = "You can't delete order that isn't yours";
+                    return View();
+                }
+                else
+                {
+                    orderClient.Cancel(order);
+                    ViewBag.Message = "Canceled";
+                    return View();
+                }
             }
         }
 
         // Get Tickets of Order
         public ActionResult GetTicketsOfOrder(int id)
         {
-            var tickets = orderClient.GetOrderTickets(id);
-            List<TicketSeatViewModel> myList = new List<TicketSeatViewModel>();
-
-            foreach (var ticket in tickets)
+            using (ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient())
             {
-                TicketSeatViewModel ticketWithSeat = new TicketSeatViewModel();
-                ticketWithSeat.TicketId = ticket.TicketId;
-                ticketWithSeat.EventId = ticket.EventId;
-                ticketWithSeat.SeatNumber = seatClient.GetSeat(ticket.SeatId).SeatNumber;
+                using (ETicketService.SeatServiceClient seatClient = new ETicketService.SeatServiceClient())
+                {
+                    orderClient.ClientCredentials.UserName.UserName = "ETicket";
+                    orderClient.ClientCredentials.UserName.Password = "ETicketPass";
+                    seatClient.ClientCredentials.UserName.UserName = "ETicket";
+                    seatClient.ClientCredentials.UserName.Password = "ETicketPass";
 
-                myList.Add(ticketWithSeat);
+                    var tickets = orderClient.GetOrderTickets(id);
+                    List<TicketSeatViewModel> myList = new List<TicketSeatViewModel>();
+
+                    foreach (var ticket in tickets)
+                    {
+                        TicketSeatViewModel ticketWithSeat = new TicketSeatViewModel();
+                        ticketWithSeat.TicketId = ticket.TicketId;
+                        ticketWithSeat.EventId = ticket.EventId;
+                        ticketWithSeat.SeatNumber = seatClient.GetSeat(ticket.SeatId).SeatNumber;
+
+                        myList.Add(ticketWithSeat);
+                    }
+
+                    return View(myList);
+                }
             }
-
-            return View(myList);
         }
 
 

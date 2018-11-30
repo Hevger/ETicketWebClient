@@ -10,21 +10,31 @@ namespace ETicketWebClient.Controllers
 {
     public class EventController : Controller
     {
-        ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient();
-   
+
         // GET: Event
         [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
-            var events = eventClient.GetAllEvents();
-            return View(events);
+            using (ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient())
+            {
+                eventClient.ClientCredentials.UserName.UserName = "ETicket";
+                eventClient.ClientCredentials.UserName.Password = "ETicketPass";
+
+                var events = eventClient.GetAllEvents();
+                return View(events);
+            }
         }
 
         // GET: Event/Details/5
         public ActionResult Details(int id)
         {
-            var myEvent = eventClient.GetEvent(id);
-            return View(myEvent);
+            using (ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient())
+            {
+                eventClient.ClientCredentials.UserName.UserName = "ETicket";
+                eventClient.ClientCredentials.UserName.Password = "ETicketPass";
+                var myEvent = eventClient.GetEvent(id);
+                return View(myEvent);
+            }
         }
 
         // GET: Event/Create
@@ -41,9 +51,14 @@ namespace ETicketWebClient.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-                eventClient.CreateEvent(myEvent);
-                return RedirectToAction("Index");
+                using (ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient())
+                {
+                    eventClient.ClientCredentials.UserName.UserName = "ETicket";
+                    eventClient.ClientCredentials.UserName.Password = "ETicketPass";
+                    // TODO: Add insert logic here
+                    eventClient.CreateEvent(myEvent);
+                    return RedirectToAction("Index");
+                }
             }
             catch
             {
@@ -55,9 +70,14 @@ namespace ETicketWebClient.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Edit(int id)
         {
-            var myEvent = eventClient.GetEvent(id);
+            using (ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient())
+            {
+                eventClient.ClientCredentials.UserName.UserName = "ETicket";
+                eventClient.ClientCredentials.UserName.Password = "ETicketPass";
+                var myEvent = eventClient.GetEvent(id);
 
-            return View(myEvent);
+                return View(myEvent);
+            }
         }
 
         // POST: Event/Edit/5
@@ -69,8 +89,13 @@ namespace ETicketWebClient.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    eventClient.UpdateEvent(myEvent);
-                    return RedirectToAction("Index");
+                    using (ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient())
+                    {
+                        eventClient.ClientCredentials.UserName.UserName = "ETicket";
+                        eventClient.ClientCredentials.UserName.Password = "ETicketPass";
+                        eventClient.UpdateEvent(myEvent);
+                        return RedirectToAction("Index");
+                    }
 
                 }
                 return View(myEvent);
@@ -85,9 +110,13 @@ namespace ETicketWebClient.Controllers
         [Authorize(Roles = "admin")]
         public ActionResult Delete(int id)
         {
-            
-            var myEvent = eventClient.GetEvent(id);
-            return View(myEvent);
+            using (ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient())
+            {
+                eventClient.ClientCredentials.UserName.UserName = "ETicket";
+                eventClient.ClientCredentials.UserName.Password = "ETicketPass";
+                var myEvent = eventClient.GetEvent(id);
+                return View(myEvent);
+            }
         }
 
         // POST: Event/Delete/5
@@ -99,7 +128,12 @@ namespace ETicketWebClient.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    eventClient.DeleteEvent(id);
+                    using (ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient())
+                    {
+                        eventClient.ClientCredentials.UserName.UserName = "ETicket";
+                        eventClient.ClientCredentials.UserName.Password = "ETicketPass";
+                        eventClient.DeleteEvent(id);
+                    }
 
                 }
                 return RedirectToAction("Index");

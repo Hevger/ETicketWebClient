@@ -11,9 +11,6 @@ namespace ETicketWebClient.Controllers
 {
     public class OrderController : Controller
     {
-        ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient();
-        ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient();
-
 
         // GET: Order
         public ActionResult Index()
@@ -37,30 +34,42 @@ namespace ETicketWebClient.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(OrderFormViewModel orderFormViewModel)
         {
-            string UserId = User.Identity.GetUserId();
-            int EventId = orderFormViewModel.EventId;
-            int Quantity = orderFormViewModel.Quantity;
-
-
-            Order order = new Order();
-            order.Quantity = Quantity;
-            order.CustomerId = UserId;
-            order.EventId = EventId;
-            order.Date = DateTime.Now.Date;
-            decimal ticketPrice = eventClient.GetEvent(EventId).TicketPrice;
-            decimal totalPrice = ticketPrice * Quantity;
-            order.TotalPrice = totalPrice;
-
-            var myOrder = orderClient.CreateOrder(order);
-            if (orderClient.GetOrder(myOrder) == null)
+            using (ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient())
             {
-                ViewBag.Message = "Order not placed, please try again!";
+                using (ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient())
+                {
+
+                    orderClient.ClientCredentials.UserName.UserName = "ETicket";
+                    orderClient.ClientCredentials.UserName.Password = "ETicketPass";
+                    eventClient.ClientCredentials.UserName.UserName = "ETicket";
+                    eventClient.ClientCredentials.UserName.Password = "ETicketPass";
+
+                    string UserId = User.Identity.GetUserId();
+                    int EventId = orderFormViewModel.EventId;
+                    int Quantity = orderFormViewModel.Quantity;
+
+
+                    Order order = new Order();
+                    order.Quantity = Quantity;
+                    order.CustomerId = UserId;
+                    order.EventId = EventId;
+                    order.Date = DateTime.Now.Date;
+                    decimal ticketPrice = eventClient.GetEvent(EventId).TicketPrice;
+                    decimal totalPrice = ticketPrice * Quantity;
+                    order.TotalPrice = totalPrice;
+
+                    var myOrder = orderClient.CreateOrder(order);
+                    if (orderClient.GetOrder(myOrder) == null)
+                    {
+                        ViewBag.Message = "Order not placed, please try again!";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Order placed :)";
+                    }
+                    return View();
+                }
             }
-            else
-            {
-                ViewBag.Message = "Order placed :)";
-            }
-            return View();
         }
 
         [HttpGet]
