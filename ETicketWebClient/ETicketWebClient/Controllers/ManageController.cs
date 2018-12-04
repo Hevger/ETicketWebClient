@@ -17,9 +17,9 @@ namespace ETicketWebClient.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-       // ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient();
-       // ETicketService.SeatServiceClient seatClient = new ETicketService.SeatServiceClient();
-       // ETicketService.TicketServiceClient ticketClient = new TicketServiceClient();
+        // ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient();
+        // ETicketService.SeatServiceClient seatClient = new ETicketService.SeatServiceClient();
+        // ETicketService.TicketServiceClient ticketClient = new TicketServiceClient();
 
 
         public ManageController()
@@ -100,21 +100,36 @@ namespace ETicketWebClient.Controllers
         {
             using (ETicketService.OrderServiceClient orderClient = new ETicketService.OrderServiceClient())
             {
-                orderClient.ClientCredentials.UserName.UserName = "ETicket";
-                orderClient.ClientCredentials.UserName.Password = "ETicketPass";
-                Order order = orderClient.GetOrder(id);
-                string orderCustomer = order.CustomerId.ToString();
-
-                if (orderCustomer != User.Identity.GetUserId())
+                using (ETicketService.EventServiceClient eventClient = new ETicketService.EventServiceClient())
                 {
-                    ViewBag.Message = "You can't delete order that isn't yours";
-                    return View();
-                }
-                else
-                {
-                    orderClient.Cancel(order);
-                    ViewBag.Message = "Canceled";
-                    return View();
+                    eventClient.ClientCredentials.UserName.UserName = "ETicket";
+                    eventClient.ClientCredentials.UserName.Password = "ETicketPass";
+                    orderClient.ClientCredentials.UserName.UserName = "ETicket";
+                    orderClient.ClientCredentials.UserName.Password = "ETicketPass";
+                    Order order = orderClient.GetOrder(id);
+                    string orderCustomer = order.CustomerId.ToString();
+                    Event myEvent = eventClient.GetEvent(order.EventId);
+                    var today = DateTime.Now;
+                    var tomorrow = today.AddDays(1);
+                    if (myEvent.Date <= tomorrow)
+                    {
+                        ViewBag.Message = "You can't cancel an order one day before";
+                        return View();
+                    }
+                    else
+                    {
+                        if (orderCustomer != User.Identity.GetUserId())
+                        {
+                            ViewBag.Message = "You can't delete an order that isn't yours";
+                            return View();
+                        }
+                        else
+                        {
+                            orderClient.Cancel(order);
+                            ViewBag.Message = "Canceled";
+                            return View();
+                        }
+                    }
                 }
             }
         }
