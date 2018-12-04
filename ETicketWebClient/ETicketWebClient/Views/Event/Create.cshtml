@@ -98,9 +98,10 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var date = $('#Date').datepicker({ dateFormat: 'yy/mm/dd' }).val();
-        var date = $('#GateOpens').datetimepicker({ dateFormat: 'yy/mm/dd', timeFormat: "hh:mm tt" }).val();
-        var date = $('#StartTime').datetimepicker({ dateFormat: 'yy/mm/dd', timeFormat: "hh:mm tt" }).val();
+        var utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+        var date = $('#Date').datepicker({ minDate: utc, dateFormat: 'yy/mm/dd' }).val();
+        var date = $('#GateOpens').datetimepicker({ minDate: utc, dateFormat: 'yy/mm/dd', timeFormat: "hh:mm tt" }).val();
+        var date = $('#StartTime').datetimepicker({ minDate: utc, dateFormat: 'yy/mm/dd', timeFormat: "hh:mm tt" }).val();
     });
 </script>
 
