@@ -113,7 +113,7 @@ namespace ETicketWebClient.Controllers
                     var tomorrow = today.AddDays(1);
                     if (myEvent.Date <= tomorrow)
                     {
-                        ViewBag.Message = "You can't cancel an order one day before";
+                        ViewBag.Message = "You can't cancel your order, when you are one day away from the event's date or the event has already been held";
                         return View();
                     }
                     else
